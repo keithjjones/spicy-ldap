@@ -305,7 +305,7 @@ event LDAP::message(c: connection,
   if (opcode == LDAP::ProtocolOpcode_SEARCH_RESULT_DONE) {
     set_session(c, message_id, opcode);
 
-    if ( result != LDAP::ResultCode_Undef ) {
+    if ( result != LDAP::ResultCode_NOT_DEFINED ) {
       if ( ! c$ldap_searches[message_id]?$result )
         c$ldap_searches[message_id]$result = set();
       add c$ldap_searches[message_id]$result[RESULT_CODES[result]];
@@ -330,7 +330,7 @@ event LDAP::message(c: connection,
       c$ldap_messages[message_id]$opcode = set();
     add c$ldap_messages[message_id]$opcode[PROTOCOL_OPCODES[opcode]];
 
-    if ( result != LDAP::ResultCode_Undef ) {
+    if ( result != LDAP::ResultCode_NOT_DEFINED ) {
       if ( ! c$ldap_messages[message_id]?$result )
         c$ldap_messages[message_id]$result = set();
       add c$ldap_messages[message_id]$result[RESULT_CODES[result]];

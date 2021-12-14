@@ -111,12 +111,13 @@ public type ResultCode = enum {
   CANNOT_CANCEL                   = 121,
   ASSERTION_FAILED                = 122,
   AUTHORIZATION_DENIED            = 123,
+  NOT_DEFINED                     = 255,
 };
 
 #-----------------------------------------------------------------------------
 public type Result = unit {
   code: ASN1::ASN1Message(True) &convert=cast<ResultCode>(cast<uint8>($$.body.num_value))
-                                &default=ResultCode::Undef;
+                                &default=ResultCode::NOT_DEFINED;
   matchedDN: ASN1::ASN1Message(True) &convert=$$.body.str_value
                                      &default="";
   diagnosticMessage: ASN1::ASN1Message(True) &convert=$$.body.str_value
