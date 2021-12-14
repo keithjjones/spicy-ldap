@@ -322,6 +322,7 @@ public type SearchScope = enum {
   SEARCH_BASE    = 0,
   SEARCH_SINGLE  = 1,
   SEARCH_TREE    = 2,
+  NOT_DEFINED = 255,
 };
 
 public type SearchDerefAlias = enum {
@@ -329,6 +330,7 @@ public type SearchDerefAlias = enum {
   DEREF_IN_SEARCHING = 1,
   DEREF_FINDING_BASE = 2,
   DEREF_ALWAYS       = 3,
+  NOT_DEFINED = 255,
 };
 
 type FilterType = enum {
@@ -682,11 +684,11 @@ public type SearchRequest = unit(inout message: Message)  {
     message.obj = self.baseObject;
   }
   scope: ASN1::ASN1Message(True) &convert=cast<SearchScope>(cast<uint8>($$.body.num_value))
-                                 &default=SearchScope::Undef {
+                                 &default=SearchScope::NOT_DEFINED {
     message.arg = "%s" % self.scope;
   }
   deref: ASN1::ASN1Message(True) &convert=cast<SearchDerefAlias>(cast<uint8>($$.body.num_value))
-                                 &default=SearchDerefAlias::Undef;
+                                 &default=SearchDerefAlias::NOT_DEFINED;
   sizeLimit: ASN1::ASN1Message(True) &convert=$$.body.num_value &default=0;
   timeLimit: ASN1::ASN1Message(True) &convert=$$.body.num_value &default=0;
   typesOnly: ASN1::ASN1Message(True) &convert=$$.body.bool_value &default=False;

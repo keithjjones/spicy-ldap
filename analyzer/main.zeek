@@ -389,13 +389,13 @@ event LDAP::searchreq(c: connection,
 
   set_session(c, message_id, LDAP::ProtocolOpcode_SEARCH_REQUEST);
 
-  if ( scope != LDAP::SearchScope_Undef ) {
+  if ( scope != LDAP::SearchScope_NOT_DEFINED ) {
     if ( ! c$ldap_searches[message_id]?$scope )
       c$ldap_searches[message_id]$scope = set();
     add c$ldap_searches[message_id]$scope[SEARCH_SCOPES[scope]];
   }
 
-  if ( deref != LDAP::SearchDerefAlias_Undef ) {
+  if ( deref != LDAP::SearchDerefAlias_NOT_DEFINED ) {
     if ( ! c$ldap_searches[message_id]?$deref )
       c$ldap_searches[message_id]$deref = set();
     add c$ldap_searches[message_id]$deref[SEARCH_DEREF_ALIASES[deref]];
